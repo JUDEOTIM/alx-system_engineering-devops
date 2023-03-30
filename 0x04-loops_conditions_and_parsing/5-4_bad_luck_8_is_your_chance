@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Loops from 1 to 10 and displays:
+#   "bad luck" if count is 4
+#   "good luck" if count is 8
+#  else  "Best School" 
+
+count=0
+
+while [ $count -lt 10 ]
+do
+  if [ $count -eq 3 ]
+  then
+    echo "bad luck"
+  elif [ $count -eq 7 ]
+  then
+    echo "good luck"
+  else
+    echo "Best School"
+  fi
+  (( count++ ))
+done
