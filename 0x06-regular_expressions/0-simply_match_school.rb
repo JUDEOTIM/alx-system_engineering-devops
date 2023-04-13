@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
-# Match School string in a text
+x = /School/
+puts ARGV[0].scan(x).join
 puts ARGV[0].scan(/School/)
