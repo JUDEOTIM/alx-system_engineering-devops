@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# connect to server using pub key in ~/.ssh/schoo
+
+ssh -i ~/.ssh/school ubuntu@18.209.225.63
