@@ -1,5 +1,4 @@
 # config file setup
-
 include stdlib
 
 file_line { 'Turn off passwd auth':
