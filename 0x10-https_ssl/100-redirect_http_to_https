@@ -36,9 +36,10 @@ defaults
 frontend myfrontend
 	bind *:80
 	bind *:443 ssl crt /etc/haproxy/certs/www.uniqueel.tech.pem
+	http-request redirect scheme https code 301 if { hdr(Host) -i www.uniqueel.tech } !{ ssl_fc }
 	default_backend myservers
 
 backend myservers
 	balance roundrobin
 	server web-01 52.87.252.93:80 check
-	server web-02 35.174.185.32:80 check
+	server web-02 35.174.185.32:80 check	
