@@ -1,30 +1,22 @@
 #!/usr/bin/env bash
-# Installs and configure web server to redirect
+# Configure an Nginx server to redirect /redirect_me to another page
+# The redirection is configured as a 301 Moved Permanently
 
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-touch /var/www/html/index.html
-sh -c "echo 'Hello World!' > /var/www/html/index.html"
-SERVER_CONFIG="server {
-	listen 80 default_server;
+
+apt-get update
+apt-get install -y nginx
+
+mkdir /etc/nginx/html/
+touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+printf %s "server {
+	listen 80;
 	listen [::]:80 default_server;
-	root /var/www/html;
-	# Add index.php to the list if you are using PHP
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		try_files \$uri \$uri/ =404;
+	root /etc/nginx/html;
+	index index.html index.htm;
+	location /redirect_me {
+		return 301 http://cuberule.com/;
 	}
-	if (\$request_filename ~ redirect_me){
-			rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-	}
-}"
-sh -c "echo '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+}" > /etc/nginx/sites-available/default
 
-if [ "$(pgrep -c nginx)" -le 0 ]
-then
-	service nginx start
-else
-	service nginx restart
-fi
+service nginx restart
