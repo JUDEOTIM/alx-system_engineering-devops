@@ -71,11 +71,11 @@
 
 # allow MULTICAST mDNS for service discovery (be sure the MULTICAST line above
 # is uncommented)
--A ufw-before-input -p udp -d 54.90.49.208 --dport 5353 -j ACCEPT
+-A ufw-before-input -p udp -d 52.87.252.93 --dport 5353 -j ACCEPT
 
 # allow MULTICAST UPnP for service discovery (be sure the MULTICAST line above
 # is uncommented)
--A ufw-before-input -p udp -d 100.26.226.119 --dport 1900 -j ACCEPT
+-A ufw-before-input -p udp -d 18.235.255.84 --dport 1900 -j ACCEPT
 
 # don't delete the 'COMMIT' line or these rules won't be processed
 COMMIT
