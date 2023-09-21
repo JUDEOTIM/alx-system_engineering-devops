@@ -1,21 +1,27 @@
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root   /var/www/html;
-    index  index.html index.htm;
+	# liste on port 80 for ipv4 and v6 addresses.
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
 
-    # Serve /airbnb-onepage/ route from AirBnB_clone_v2
-    location = /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
-    }
+	# IP of the server
+	server_name 52.210.195.75;
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=DHITmcKUGik;
-    }
+	# Add a custom HTTP response header variable
+	add_header X-Served-By 176203-web-01;
 
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
+	# Configure reverse proxy
+	# All request to NGINX are forwarded to the application server
+	location / {
+		include proxy_params;
+		proxy_pass http://127.0.0.1:5000;
+	}
+	
+	# 404 error page
+	error_page 404 /error404.html;
+
+        # Disable error404.html page for external access
+        location = /error404.html {
+		root /var/www/html;
+		internal;
+        }
 }
